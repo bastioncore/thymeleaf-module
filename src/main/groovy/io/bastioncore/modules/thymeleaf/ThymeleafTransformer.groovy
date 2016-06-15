@@ -1,16 +1,16 @@
 package io.bastioncore.modules.thymeleaf
 
+import io.bastioncore.core.BastionContext
 import io.bastioncore.core.Configuration
-import io.bastioncore.core.ContextHolder;
-import io.bastioncore.core.components.AbstractTransformer;
+import io.bastioncore.core.components.AbstractTransformer
 import io.bastioncore.core.messages.DefaultMessage
 import io.bastioncore.core.resolvers.IResourceResolver
 import org.springframework.context.annotation.Scope
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Component
 import org.thymeleaf.TemplateEngine
-import org.thymeleaf.context.Context;
+import org.thymeleaf.context.Context
 import org.thymeleaf.templateresolver.AbstractTemplateResolver
-import org.thymeleaf.templateresolver.StringTemplateResolver;
+import org.thymeleaf.templateresolver.StringTemplateResolver
 
 @Component
 @Scope('prototype')
@@ -29,7 +29,7 @@ public class ThymeleafTransformer extends AbstractTransformer{
             layout = message.configuration.layout
             if(!layout && message.configuration.layout_id){
                 String resolverId = message.configuration.resolver ?: 'fileSystemResolver'
-                IResourceResolver resolver = ContextHolder.applicationContext.getBean(resolverId)
+                IResourceResolver resolver = BastionContext.instance.applicationContext.getBean(resolverId)
                 layout = resolver.getResource(type:'layout',name:message.configuration.layout_id)
             }
             templateResolver = new StringTemplateResolver()
